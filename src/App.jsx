@@ -1,16 +1,19 @@
 import { useState } from 'react'
-import Cards from './components/Cards'
+
+import GameArea from './components/GameArea'
 
 function App() {
-  
+
   return (
     <>
       <header>
         <h1>Memory Card</h1>
-        <Cards/>
+        
       </header>
       <main>
-        
+        <div className='game-area'>
+          <GameArea/>  
+        </div>
       </main>
     </>
   )

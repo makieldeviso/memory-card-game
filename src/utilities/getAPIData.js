@@ -1,10 +1,21 @@
-const baseUrl =` https://foodish-api.com/api/images/dessert`
+import { generateRandomNumber } from "./utilities";
+const baseUrl =  'https://pokeapi.co/api/v2';
 
+const createRandomPokemonUrl = function () {
+  const randomNumber = generateRandomNumber(1, 500);
+  const pokemonUrl = `${baseUrl}/pokemon/${randomNumber}/`;
+  return pokemonUrl;
+}
 
-const getData = async function () {
+const createItemUrl = function (itemName) {
+  const itemUrl = `${baseUrl}/item/${itemName}/`;
+  return itemUrl;
+}
 
+const getData = async function (url) {
+  
   try {
-    const requestUrl = baseUrl;
+    const requestUrl = url;
     const response = await fetch(requestUrl, {
       method: 'GET',
       mode: 'cors'
@@ -23,23 +34,33 @@ const getData = async function () {
 
 const getBatchData = async function (count, arr = []) {
   // Note: count parameter -> number of images to get
-  let imagesArr = [...arr];
+  let objArr = [...arr];
 
-  let imgObj = await getData();
-
-  // Reroll imgObj if same image is already in the imagesArr
-  while (imagesArr.includes(imgObj.image)) {
-    imgObj = await getData();
+  let dataObj = await getData(createRandomPokemonUrl());
+  
+  // Check if an object is already in the array
+  // Reroll fetch if obj is already inside
+  const checkResult = objArr.filter((obj) => obj.id === dataObj.id).length > 0;
+  while (checkResult) {
+    dataObj = await getData(createRandomPokemonUrl());
   }
 
-  if (imagesArr.length < count) {
+  if (objArr.length < count) {
     console.log('loading');
-    return await getBatchData(count, [...imagesArr, imgObj.image]);
+    return await getBatchData(count, [...objArr, dataObj]);
 
   } else {
-    return imagesArr
+    return objArr
   }
 
 }
 
-export default getBatchData
+const getItemData = function (itemName) {
+  const itemUrl = createItemUrl(itemName)
+  const itemObj = getData(itemUrl);
+  return itemObj;
+}
+
+
+
+export {getBatchData, getItemData}
