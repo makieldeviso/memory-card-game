@@ -13,20 +13,32 @@
 
   --common-font: "Roboto", sans-serif;
   --header-font: "Montserrat", sans-serif;
+
+  --card-width: 120px;
+  --card-height: 150px;
+
+  --lightest-color: #FDF4F5;
+  --pink: #E8A0BF;
+  --purple: #BA90C6;
+  --blue: #C0DBEA;
+}
+
+header {
+  background-color: var(--blue);
+  padding: var(--padding);
 }
 
 .game-area {
   display: grid;
-  grid-template-columns: 0fr 1fr;
+  grid-template-columns: 1fr 1fr;
+  padding: var(--padding);
 }
 
+/* Cards (start) */
 .cards-cont {
   display: grid;
-  /* grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); */
-  /* grid-template-columns: repeat(4, 150px);
-  grid-template-rows: repeat(4, 150px); */
-
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: repeat(3, 1fr);
 
   justify-items: center;
   align-items: center;
@@ -34,11 +46,11 @@
   border: 1px solid black;
   padding: var(--padding);
   width: max-content;
+  position: relative;
 }
 
 .card {
-  border: 1px solid black;
-  width: max-content;
+  min-width: max-content;
 
   display: grid;
   grid-template-columns: 1fr;
@@ -46,49 +58,67 @@
   align-items: center;
 
   position: relative;
+  
+  width: var(--card-width);
+  height:var(--card-height);
+
   transform-style: preserve-3d;
   transition: transform 0.3s linear;
+  transform: rotateY(180deg) rotateZ(20deg);
+}
+
+.card.flip-front.disabled:hover {
+  cursor: default;
+  transform: scale(1);
+}
+
+.card.flip-front:hover {
+  cursor: pointer;
+  transition: transform 0.3s ease-in-out;
+  z-index: 2;
+  transform: scale(1.2);
+}
+
+@keyframes sway {
+  from {  
+    transform: translateY(-5px);
+  }
+  to {
+    transform: translateY(0);
+  }
+} 
+
+.card.flip-front.disabled:hover .pkmn-image {
+  animation: none;
+}
+
+.card.flip-front:hover .pkmn-image {
+  animation: sway 0.5s alternate-reverse infinite;
 }
 
 .card > * {
   pointer-events: none;
 }
 
-@keyframes flip-to-back {
-  from {
-    transform: rotateY(0deg);
-  }
-  to {
-    transform: rotateY(180deg);
-  }
-}
-
-@keyframes flip-to-front {
-  from {
-    transform: rotateY(180deg);
-  }
-  to {
-    transform: rotateY(0deg);
-  }
-}
-
 .card.flip-back {
-  animation: flip-to-back 0.3s linear;
-  transform: rotateY(180deg);
+  transform: rotateY(180deg) rotateZ(20deg);
+}
+
+@keyframes flip-front {
+  from {
+    transform: rotateY(180deg) rotateZ(20deg);
+  } to {
+    transform: rotateY(0deg) rotateZ(0deg);
+  }
 }
 
 .card.flip-front {
-  animation: flip-to-front 0.3s linear;
-  transform: rotateY(0deg);
+  animation: flip-front 0.3s ease-in-out 1;
+  transform: rotateY(0deg) rotateZ(0deg);
 }
 
-/* .card:not(.flip) {
-  transform: rotateY(0deg);
-} */
-
 .card-front, .card-back {
-  object-fit: cover;
-  object-position: center;
+  border-radius: 5px;
   border: 1px solid black;
   padding: var(--padding);
   backface-visibility: hidden;
@@ -97,24 +127,33 @@
 .card-front {
   width: 100%;
   height: 100%;
-  background-color: red;
+  background-color: var(--lightest-color);
+  border: 1px solid var(--pink);
+  box-shadow: 0 0 3px 1px #BA90C6;
+
+  display: grid;
+  grid-template-columns: 1fr;
+
+  justify-items: center;
 }
 
 .pkmn-image {
-  width: 150px;
   object-fit: cover;
   object-position: center;
 }
 
 .pkmn-name {
   text-align: center;
+  font-size: 0.7em;
+  max-width: 100px;
+  text-wrap: wrap;
 }
 
 .card-back {
   width: 100%;
   height: 100%;
-  border: 1px solid black;
-  background-color: blue;
+  border: 3px solid var(--purple);
+  background-color: var(--blue);
 
   display: flex;
   justify-content: center;
@@ -129,3 +168,83 @@
 .level-icon {
   width: 50%;
 }
+
+/* Cards (end) */
+
+/* Score Board (start) */
+.level-label {
+  font-size: 2rem;
+}
+
+.score-label {
+  font-size: 2rem;
+}
+
+.score-bar {
+  border: 1px solid black;
+  width: 90%;
+  height: 30px;
+  padding: 5px 0;
+}
+
+.meter {
+  background: green;
+  height: 100%;
+  transition: width 0.5s ease-in-out;
+}
+
+/* Score Board (end) */
+
+/* Game Over Modal (start) */
+.modal-screen {
+  margin: auto;
+  border: 1px solid transparent;
+  border-radius: 10px;
+}
+
+.modal-screen::backdrop {
+  background-color: rgba(186, 144, 198, 0.5);
+  filter: brightness(0.3);
+}
+
+.modal-content {
+  width: 50vw;
+  max-width: 350px;
+  padding: calc(var(--padding) * 2);
+}
+
+.modal-screen.loading-screen {
+  border: 1px solid transparent;
+  background-color: transparent;
+}
+
+.loading-screen .modal-content {
+  display: grid;
+  grid-template-columns: 1fr;
+  justify-items: center;
+  align-items: center;
+  gap: var(--margin);
+  border: none;
+  background-color: transparent;
+}
+
+@keyframes wiggle {
+  
+  from {
+    transform: rotateZ(15deg) translateX(5px);
+  }
+  to {
+    transform: rotateZ(-15deg) translateX(-5px);
+  }
+
+}
+
+.loading-icon {
+  width: 100px;
+  height: 100px;
+  animation: wiggle 0.5s ease-in-out alternate infinite;
+  transform-style: preserve-3d;
+}
+
+
+/* Game Over Modal (end) */

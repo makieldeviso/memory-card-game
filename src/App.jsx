@@ -1,6 +1,7 @@
-import { useState } from 'react'
+import { useState, useRef, createContext } from 'react'
 
 import GameArea from './components/GameArea'
+import { GameOverScreen, LoadingScreen } from './components/Modals';
 
 function App() {
 
@@ -11,9 +12,9 @@ function App() {
         
       </header>
       <main>
-        <div className='game-area'>
-          <GameArea/>  
-        </div>
+        <GameArea/> 
+        <GameOverScreen/>
+        <LoadingScreen/>
       </main>
     </>
   )

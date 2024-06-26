@@ -35,9 +35,8 @@ const getData = async function (url) {
 const getBatchData = async function (count, arr = []) {
   // Note: count parameter -> number of images to get
   let objArr = [...arr];
-
   let dataObj = await getData(createRandomPokemonUrl());
-  
+
   // Check if an object is already in the array
   // Reroll fetch if obj is already inside
   const checkResult = objArr.filter((obj) => obj.id === dataObj.id).length > 0;

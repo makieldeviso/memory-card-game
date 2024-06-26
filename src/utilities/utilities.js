@@ -17,4 +17,36 @@ const capitalizeString = function (string) {
   return newStringArray.join(' ');
 }
 
-export {generateRandomNumber, capitalizeString}
+const animateFlip = async function (face) {
+  const cardsCont = document.querySelector('.cards-cont')
+  const cards = document.querySelectorAll('div.card');
+
+  if (face) {
+    cards.forEach(card => {
+      card.classList.remove('flip-back');
+      card.classList.add('flip-front');
+    })
+
+  } else {
+    cards.forEach(card => {
+      card.classList.remove('flip-front');
+      card.classList.add('flip-back');
+    })
+
+  }
+
+  return face
+}
+
+const showLoadingScreen = function (status) {
+  const loadingModal = document.querySelector('dialog.loading-screen');
+
+  if (status) {
+    loadingModal.showModal();
+  } else {
+    loadingModal.close();
+  }
+
+}
+
+export {generateRandomNumber, capitalizeString, animateFlip, showLoadingScreen}
