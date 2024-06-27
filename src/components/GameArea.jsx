@@ -3,8 +3,9 @@ import PropTypes from 'prop-types'
 
 import Cards from '../components/Cards'
 import ScoreBoard from './ScoreBoard';
+import { GameOverScreen, LoadingScreen } from '../components/Modals';
 
-import { generateRandomNumber, animateFlip, showLoadingScreen } from '../utilities/utilities';
+import { generateRandomNumber, animateFlip } from '../utilities/utilities';
 import { getBatchData, getItemData } from '../utilities/getAPIData';
 
 const GameArea = function () {
@@ -12,13 +13,16 @@ const GameArea = function () {
   const [level, setLevel] = useState(1);
   const [score, setScore] = useState(0);
   const [gameOver, setGameOver] = useState(false);
-  // const [cardPick, setCardPick] = useState([]);
+  const [restart, setRestart] = useState(0);
 
   const [cardBackData, setCardBackData] = useState([]);
   const [dataObjArr, setDataObjArr] = useState([]);
 
   const nextLevelRef = useRef(5);
   const cardPickRef = useRef([]);
+
+  const loadingScreenRef = useRef(null);
+  const gameOverScreenRef = useRef(null);
   
   // Get resource for pokeballs
   useEffect(() => {
@@ -58,9 +62,9 @@ const GameArea = function () {
       //Note: empty card pick on level up
       cardPickRef.current = [];
 
-      showLoadingScreen(true);
+      loadingScreenRef.current.showModal();
       const dataBatch = await getBatchData(batchCount);
-      showLoadingScreen(false);
+      loadingScreenRef.current.close()
 
       setDataObjArr((i) => i = dataBatch);   
     }
@@ -72,8 +76,9 @@ const GameArea = function () {
       setDataObjArr([]);
     }
 
-  },[level]);
+  },[level, restart]);
 
+  // Checks score and update level
   useEffect(() => {
     console.log(score)
     console.log(nextLevelRef)
@@ -96,6 +101,17 @@ const GameArea = function () {
 
   }, [score])
 
+  const handlePlayAgain = function () {
+    setLevel(1);
+    setScore(0);
+    setGameOver(false);
+    setRestart(r => r + 1)
+
+    nextLevelRef.current = 5;
+    cardPickRef.current = [];
+
+    gameOverScreenRef.current.close();
+  }
 
   const handleShuffleCards = function () {
 
@@ -132,7 +148,8 @@ const GameArea = function () {
     if (cardCheck) {
       // Note: if cardCheck is true, the card was already picked, game over
       setGameOver((g) => g = true);
-      document.querySelector('dialog.game-over-screen').showModal();
+      // document.querySelector('dialog.game-over-screen').showModal();
+      gameOverScreenRef.current.showModal();
 
     } else {
       // Note: if cardCheck is false, add score
@@ -145,13 +162,16 @@ const GameArea = function () {
   return (
     <div className='game-area'>
       {/* <p>{gameOver ? 'Game Over!' : 'Playing' }</p> */}
-      <ScoreBoard level={level} score={score}/>
+      <ScoreBoard level={level} score={score} restart={restart}/>
       <Cards 
         dataObjArr = {dataObjArr} 
         handleScoring = {handleScoring}
         cardBackData = {level < 4 ? cardBackData[level - 1] : cardBackData[3]}
         gameOver = {gameOver}
       />
+
+    <GameOverScreen gameOverScreenRef={gameOverScreenRef} handlePlayAgain={handlePlayAgain}/>
+    <LoadingScreen loadingScreenRef={loadingScreenRef}/>
     </div>
   )
 }

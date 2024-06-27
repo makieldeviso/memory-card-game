@@ -1,6 +1,6 @@
-import {useState, useEffect, useRef} from 'react'
+import { useState, useEffect } from 'react'
 
-const ScoreBoard = function ({level, score}) {
+const ScoreBoard = function ({level, score, restart}) {
 
   const [baseScore, setBaseScore] = useState(0);
   const [nextLevel, setNextLevel] = useState(5);
@@ -18,7 +18,7 @@ const ScoreBoard = function ({level, score}) {
 
     setBaseScore(0);
 
-  }, [level])
+  }, [level, restart])
 
   useEffect(() => {
 
