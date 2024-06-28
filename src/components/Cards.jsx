@@ -2,15 +2,20 @@ import { useState, useEffect, useRef } from "react";
 import PropTypes from 'prop-types';
 import { animateFlip, capitalizeString } from "../utilities/utilities";
 
-const Cards = function ({dataObjArr, handleScoring, cardBackData, gameOver}) {
+const Cards = function ({dataObjArr, cardBackData, start, gameOver, score, level, handleStart, handleScoring}) {
+
   useEffect(() => {
-   
-    animateFlip(true);
+    if (start) {
+      animateFlip(true);
+    }
     
     return () => {
-      animateFlip(false);
+      if (start) {
+        animateFlip(false);
+      }
     }
-  })
+
+  }, [start, gameOver, score, dataObjArr])
 
   const ImageCards = function () {
     const CardsArray = dataObjArr.map(data => {
@@ -19,7 +24,7 @@ const Cards = function ({dataObjArr, handleScoring, cardBackData, gameOver}) {
           key = {data.id} 
           className = {`card ${gameOver ? 'disabled' : ''}`} 
           data-id = {data.id}
-          onClick = {gameOver ? null : handleScoring} 
+          onClick = {gameOver || !start ? null : handleScoring} 
         >
 
           <div className = 'card-front'>
@@ -42,10 +47,19 @@ const Cards = function ({dataObjArr, handleScoring, cardBackData, gameOver}) {
         </div>   
       )
     });
-    
+
+    const StartBtn = function () {
+      return (
+        <button onClick={handleStart} className='start-btn'>
+           START
+        </button>
+      )
+    }
+
     return (
       <div className = 'cards-cont'>
         {CardsArray}
+        {!start && <StartBtn/>}
       </div>
     )
   }
@@ -64,7 +78,8 @@ Cards.propTypes = {
     }),
     name: PropTypes.string
   }),
-  gameOver: PropTypes.bool
+  gameOver: PropTypes.bool,
+  score: PropTypes.number
 }
 
 export default Cards

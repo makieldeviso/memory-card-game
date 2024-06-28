@@ -1,5 +1,7 @@
 import pokeImg from '../assets/pokeball.png'
 
+import { RestartIcon } from './Icons'
+
 const GameOverScreen = function ({gameOverScreenRef, handlePlayAgain}) {
   return (
     <dialog className='modal-screen game-over-screen' ref={gameOverScreenRef}>
@@ -7,8 +9,10 @@ const GameOverScreen = function ({gameOverScreenRef, handlePlayAgain}) {
         <h2>Game Over</h2>
         <button 
           type='button'
+          className='play-again-btn'
           onClick={handlePlayAgain}
         >
+          <RestartIcon/>
             Play Again
         </button>
       </div>

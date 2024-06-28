@@ -12,6 +12,7 @@ const GameArea = function () {
 
   const [level, setLevel] = useState(1);
   const [score, setScore] = useState(0);
+  const [start, setStart] = useState(false);
   const [gameOver, setGameOver] = useState(false);
   const [restart, setRestart] = useState(0);
 
@@ -47,7 +48,6 @@ const GameArea = function () {
 
   // Get resource for pokemons
   useEffect(() => {
-
     const getDataObjects = async function () {
       let batchCount;
       if (level === 1) {
@@ -69,10 +69,8 @@ const GameArea = function () {
 
       setDataObjArr((d) => d = dataBatch);  
     }
-
     getDataObjects()
 
-   
     // Clean up code
     return () => {
       setDataObjArr(d => d = []);
@@ -102,7 +100,12 @@ const GameArea = function () {
 
   }, [score, level])  
 
+  const handleStart = function () {
+    setStart(true);
+  }
+
   const handlePlayAgain = function () {
+    setStart(false);
     setLevel(1);
     setScore(0);
     setGameOver(false);
@@ -117,7 +120,6 @@ const GameArea = function () {
   const handleShuffleCards = function () {
 
     const shuffleCards = function (current = [...dataObjArr], shuffled = []) {
-
       if (current.length > 0) {
         const randomIndex = generateRandomNumber(0, current.length - 1);
         const getCard = current.splice(randomIndex, 1);
@@ -127,7 +129,6 @@ const GameArea = function () {
         return shuffled        
       }
     }
-
     setDataObjArr(shuffleCards());  
   }
 
@@ -156,7 +157,6 @@ const GameArea = function () {
       // Run animation to trigger transitionend event
       await animateFlip(false);  
     }
-
   }
   
   return (
@@ -164,9 +164,13 @@ const GameArea = function () {
       <ScoreBoard level={level} score={score} restart={restart}/>
       <Cards 
         dataObjArr = {dataObjArr} 
-        handleScoring = {handleScoring}
         cardBackData = {level < 4 ? cardBackData[level - 1] : cardBackData[3]}
+        start = {start}
         gameOver = {gameOver}
+        score = {score}
+        level = {level}
+        handleScoring = {handleScoring}
+        handleStart = {handleStart}
       />
 
     <GameOverScreen gameOverScreenRef={gameOverScreenRef} handlePlayAgain={handlePlayAgain}/>
