@@ -21,6 +21,10 @@
   --pink: #E8A0BF;
   --purple: #BA90C6;
   --blue: #C0DBEA;
+
+  --base-blue: #1CB3C8;
+  --light-gray: #738598;
+  --light-yellow: #FFFFD2;
 }
 
 header {
@@ -172,23 +176,42 @@ header {
 /* Cards (end) */
 
 /* Score Board (start) */
-.level-label {
-  font-size: 2rem;
+.main-score-board {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: max-content 1fr;
+  width: 80%;
+  padding: var(--padding);
+  background-color: var(--lightest-color);
+  border: 5px solid var(--light-gray);
+  border-radius: 10px;
+  gap: 5px;
 }
 
 .score-label {
-  font-size: 2rem;
+  font-size: 1rem;
+  grid-column: 1 / 2;
+  
 }
 
+.level-label {
+  font-size: 1rem;
+  justify-self: end;
+} 
+
 .score-bar {
-  border: 1px solid black;
-  width: 90%;
+  grid-column: 1 / 3;
+  border: 3px solid var(--light-gray);
+  background-color: var(--light-yellow);
+  border-radius: 10px;
   height: 30px;
-  padding: 5px 0;
+  padding: 2px;
+  overflow: hidden;
 }
 
 .meter {
-  background: green;
+  background: var(--base-blue);
+  border-radius: 5px;
   height: 100%;
   transition: width 0.5s ease-in-out;
 }
@@ -229,14 +252,12 @@ header {
 }
 
 @keyframes wiggle {
-  
   from {
     transform: rotateZ(15deg) translateX(5px);
   }
   to {
     transform: rotateZ(-15deg) translateX(-5px);
   }
-
 }
 
 .loading-icon {

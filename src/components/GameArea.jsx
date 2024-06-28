@@ -47,6 +47,7 @@ const GameArea = function () {
 
   // Get resource for pokemons
   useEffect(() => {
+
     const getDataObjects = async function () {
       let batchCount;
       if (level === 1) {
@@ -64,24 +65,24 @@ const GameArea = function () {
 
       loadingScreenRef.current.showModal();
       const dataBatch = await getBatchData(batchCount);
-      loadingScreenRef.current.close()
+      loadingScreenRef.current.close();
 
-      setDataObjArr((i) => i = dataBatch);   
+      setDataObjArr((d) => d = dataBatch);  
     }
-    getDataObjects();
 
+    getDataObjects()
 
+   
     // Clean up code
     return () => {
-      setDataObjArr([]);
+      setDataObjArr(d => d = []);
     }
 
   },[level, restart]);
 
   // Checks score and update level
   useEffect(() => {
-    console.log(score)
-    console.log(nextLevelRef)
+
     if (level === 1 && score === nextLevelRef.current) {
       nextLevelRef.current = nextLevelRef.current + 10;
       setLevel(l => l + 1);
@@ -99,7 +100,7 @@ const GameArea = function () {
       setLevel(l => l + 1);
     }
 
-  }, [score])
+  }, [score, level])  
 
   const handlePlayAgain = function () {
     setLevel(1);
@@ -148,7 +149,6 @@ const GameArea = function () {
     if (cardCheck) {
       // Note: if cardCheck is true, the card was already picked, game over
       setGameOver((g) => g = true);
-      // document.querySelector('dialog.game-over-screen').showModal();
       gameOverScreenRef.current.showModal();
 
     } else {
@@ -161,7 +161,6 @@ const GameArea = function () {
   
   return (
     <div className='game-area'>
-      {/* <p>{gameOver ? 'Game Over!' : 'Playing' }</p> */}
       <ScoreBoard level={level} score={score} restart={restart}/>
       <Cards 
         dataObjArr = {dataObjArr} 

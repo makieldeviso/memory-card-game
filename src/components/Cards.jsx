@@ -4,7 +4,7 @@ import { animateFlip, capitalizeString } from "../utilities/utilities";
 
 const Cards = function ({dataObjArr, handleScoring, cardBackData, gameOver}) {
   useEffect(() => {
-
+   
     animateFlip(true);
     
     return () => {
