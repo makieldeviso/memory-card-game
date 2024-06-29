@@ -2,7 +2,9 @@ import { useState, useEffect, useRef } from "react";
 import PropTypes from 'prop-types';
 import { animateFlip, capitalizeString } from "../utilities/utilities";
 
-const Cards = function ({dataObjArr, cardBackData, start, gameOver, score, level, handleStart, handleScoring}) {
+import { BallIcons } from "./Icons";
+
+const Cards = function ({dataObjArr, start, gameOver, score, level, handleStart, handleScoring}) {
 
   useEffect(() => {
     if (start) {
@@ -37,11 +39,7 @@ const Cards = function ({dataObjArr, cardBackData, start, gameOver, score, level
           </div>
           
           <div className = 'card-back'>
-            <img 
-              src = {cardBackData.sprites.default}
-              alt = {cardBackData.name} 
-              className="level-icon"
-            />
+            <BallIcons level={level}/>
           </div>
         
         </div>   
@@ -71,15 +69,12 @@ const Cards = function ({dataObjArr, cardBackData, start, gameOver, score, level
 
 Cards.propTypes = {
   dataObjArr: PropTypes.array,
-  handleScoring: PropTypes.func,
-  cardBackData: PropTypes.shape ({
-    sprites: PropTypes.shape({
-      default: PropTypes.string
-    }),
-    name: PropTypes.string
-  }),
+  start: PropTypes.bool,
   gameOver: PropTypes.bool,
-  score: PropTypes.number
+  score: PropTypes.number,
+  level: PropTypes.number,
+  handleStart: PropTypes.func,
+  handleScoring: PropTypes.func,
 }
 
 export default Cards

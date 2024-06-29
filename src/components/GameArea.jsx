@@ -6,7 +6,7 @@ import ScoreBoard from './ScoreBoard';
 import { GameOverScreen, LoadingScreen } from '../components/Modals';
 
 import { generateRandomNumber, animateFlip } from '../utilities/utilities';
-import { getBatchData, getItemData } from '../utilities/getAPIData';
+import { getBatchData } from '../utilities/getAPIData';
 
 const GameArea = function () {
 
@@ -16,7 +16,6 @@ const GameArea = function () {
   const [gameOver, setGameOver] = useState(false);
   const [restart, setRestart] = useState(0);
 
-  const [cardBackData, setCardBackData] = useState([]);
   const [dataObjArr, setDataObjArr] = useState([]);
 
   const nextLevelRef = useRef(5);
@@ -25,27 +24,6 @@ const GameArea = function () {
   const loadingScreenRef = useRef(null);
   const gameOverScreenRef = useRef(null);
   
-  // Get resource for pokeballs
-  useEffect(() => {
-    const getBallData = async function () {
-      const itemArray = [
-        await getItemData('poke-ball'),
-        await getItemData('great-ball'),
-        await getItemData('ultra-ball'),
-        await getItemData('master-ball')
-      ]
-
-      setCardBackData(itemArray);
-    }
-    getBallData();
-
-     // Clean up code
-     return () => {
-      setCardBackData([]);
-    }
-
-  },[])
-
   // Get resource for pokemons
   useEffect(() => {
     const getDataObjects = async function () {
@@ -105,7 +83,6 @@ const GameArea = function () {
   }
 
   const handlePlayAgain = function () {
-    setStart(false);
     setLevel(1);
     setScore(0);
     setGameOver(false);
@@ -164,7 +141,6 @@ const GameArea = function () {
       <ScoreBoard level={level} score={score} restart={restart}/>
       <Cards 
         dataObjArr = {dataObjArr} 
-        cardBackData = {level < 4 ? cardBackData[level - 1] : cardBackData[3]}
         start = {start}
         gameOver = {gameOver}
         score = {score}
