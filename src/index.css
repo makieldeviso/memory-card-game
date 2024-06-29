@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Roboto&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playwrite+IT+Moderna:wght@100..400&family=Raleway:ital,wght@0,100..900;1,100..900&family=Roboto&family=Roboto+Condensed:ital@0;1&display=swap');
 
 * {
   margin: 0;
@@ -12,7 +12,9 @@
   --margin: 16px;
 
   --common-font: "Roboto", sans-serif;
-  --header-font: "Montserrat", sans-serif;
+  --header-font: "Raleway", sans-serif;
+  --handwritten-font: "Playwrite IT Moderna", sans-serif;
+  --condensed-font: "Roboto Condensed", sans-serif;
 
   --card-width: 120px;
   --card-height: 150px;
@@ -27,11 +29,19 @@
   --light-yellow: #FFFFD2;
   --green: #3EC70B;
   --red: #FF6969;
+
 }
 
-header {
+.header-cont {
   background-color: var(--blue);
   padding: var(--padding);
+  color: black;
+
+}
+
+.page-name {
+  font-size: 1.3rem;
+  font-family: var(--handwritten-font);
 }
 
 button:hover {
@@ -49,35 +59,42 @@ button:hover {
 }
 
 .start-btn {
+  font-family: var(--handwritten-font);
   font-size: 2rem;
-  font-weight: bold;
-  letter-spacing: 3px;
-  padding: var(--padding);
+
+  width: max-content;
+  padding: var(--padding) calc(var(--padding) * 2);
   border: 3px solid var(--base-blue);
   background-color: var(--green);
   border-radius: 10px;
+
   color: var(--lightest-color);
   text-shadow: 0 0 3px var(--light-gray);
   box-shadow: 0 5px 5px 1px var(--light-gray);
 
-  width: max-content;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   position: absolute;
+}
 
+.start-btn svg {
+  width: 50px;
 }
 
 /* Cards (start) */
 .cards-cont {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  grid-template-rows: repeat(3, 1fr);
+  grid-template-rows: repeat(4, 1fr);
 
   justify-items: center;
   align-items: center;
   gap: 8px;
   border: 1px solid black;
   border-radius: 10px;
-  padding: calc(var(--padding) * 2);
-  width: 100%;
+  padding: var(--padding);
+  width: max-content;
   height: 100%;
   position: relative;
 }
@@ -115,6 +132,10 @@ button:hover {
   transform: rotateY(180deg);
 }
 
+.card > * {
+  pointer-events: none;
+}
+
 .card.flip-front.disabled:hover {
   cursor: default;
   transform: scale(1);
@@ -142,10 +163,6 @@ button:hover {
 
 .card.flip-front:hover .pkmn-image {
   animation: sway 0.5s alternate-reverse infinite;
-}
-
-.card > * {
-  pointer-events: none;
 }
 
 .card.flip-back {
@@ -176,12 +193,17 @@ button:hover {
   width: 100%;
   height: 100%;
   background-color: var(--lightest-color);
-  border: 1px solid var(--pink);
-  box-shadow: 0 0 3px 1px #BA90C6;
+  border: 1px solid var(--red);
+  box-shadow: 0 0 5px 1px var(--pink);
+
+  background-image: url(./assets/bg-3.png);
+  background-position: center;
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
 
   display: grid;
   grid-template-columns: 1fr;
-
+  align-items: center;
   justify-items: center;
 }
 
@@ -192,9 +214,17 @@ button:hover {
 
 .pkmn-name {
   text-align: center;
+  font-family: var(--condensed-font);
   font-size: 0.7em;
   max-width: 100px;
   text-wrap: wrap;
+  width: 85%;
+  text-align: center;
+  margin: auto;
+  border: 1px solid var(--purple);
+  border-radius: 5px 0 5px 0;
+  padding: calc(var(--padding) * 0.3) 0;
+  background-color: var(--light-yellow);
 }
 
 .card-back {
@@ -202,6 +232,9 @@ button:hover {
   height: 100%;
   border: 3px solid var(--purple);
   background-color: var(--blue);
+  background-image: url(./assets/bg-2.png);
+  background-position: center;
+  background-size: cover;
 
   display: flex;
   justify-content: center;
@@ -215,6 +248,9 @@ button:hover {
 
 .level-icon {
   width: 50%;
+  border: 1px solid var(--purple);
+  box-shadow: 0 0 5px 1px var(--pink);
+  border-radius: 50%;
 }
 
 /* Cards (end) */
@@ -263,10 +299,28 @@ button:hover {
 /* Score Board (end) */
 
 /* Game Over Modal (start) */
+@keyframes pop-in {
+  0%{
+    transform: translateY(-100vw);
+  }
+  33% {
+    transform: translateY(0);
+  }
+  66% {
+    transform: translateY(-30px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
 .modal-screen {
-  margin: auto;
+  margin: 100px auto;
   border: 1px solid transparent;
-  border-radius: 10px;
+  border-radius: 30px;
+  border: 5px solid black;
+  padding: calc(var(--padding) * 2);
+  animation: pop-in 0.5s ease-out 1;
 }
 
 .modal-screen::backdrop {
@@ -281,28 +335,48 @@ button:hover {
 }
 
 .game-over-screen {
-  background-color: var(--lightest-color);
+  background-color: #3D3B40;
   min-height: max-content;
-  border: 5px solid var(--red);
+  border-color: var(--purple);
 }
 
 .game-over-screen .modal-content {
   height: 100%;
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: max-content;
+  justify-items: center;
   align-items: center;
-  gap: calc(var(--margin) * 2);
+}
+
+.game-over-screen h2 {
+  color: var(--blue);
+  font-family: var(--header-font);
+  font-size: 2rem;
+}
+
+.game-over-icon {
+  width: 100px;
+  margin-top: calc(var(--margin) * 3);
+  transform: rotateY(180deg);
 }
 
 .play-again-btn {
-  background-color: var(--l);
+  background-color: white;
+  border: 5px solid var(--base-blue);
+  border-radius: 10px;
+  color: black;
+  
+  margin-top: var(--margin);
+  font-family: var(--handwritten-font);
   font-size: 1rem;
   font-weight: bold;
   padding: var(--padding);
-  border: 3px solid var(--base-blue);
-  border-radius: 10px;
+  
+  width: max-content;
+  height: max-content;
 
-  display: flex;
+  display: flex;  
   flex-direction: column;
   align-items: center;
 }

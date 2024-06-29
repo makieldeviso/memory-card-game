@@ -9,6 +9,8 @@ import ball2 from '../assets/great-ball.png';
 import ball3 from '../assets/ultra-ball.png';
 import ball4 from '../assets/master-ball.png';
 
+import gameOver from '../assets/game-over.gif'
+
 const BallIcons = function ({level}) {
   const iconsArr = [ball1, ball2, ball3, ball4];
   const index = level <= 4 ? level - 1 : 4 - 1;
@@ -20,6 +22,13 @@ const BallIcons = function ({level}) {
 BallIcons.propTypes = {
   level: PropTypes.number
 }
+
+const GameOverIcon = function () {
+  return (
+    <img src={gameOver} alt="game over" className='game-over-icon'/>
+  )
+}
+
 
 const PlayIcon = function () {
   return (
@@ -33,4 +42,4 @@ const RestartIcon = function () {
   )
 }
 
-export {PlayIcon, RestartIcon, BallIcons}
+export {PlayIcon, RestartIcon, BallIcons, GameOverIcon}

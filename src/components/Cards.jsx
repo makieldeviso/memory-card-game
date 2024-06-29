@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import PropTypes from 'prop-types';
 import { animateFlip, capitalizeString } from "../utilities/utilities";
 
-import { BallIcons } from "./Icons";
+import { BallIcons, PlayIcon } from "./Icons";
 
 const Cards = function ({dataObjArr, start, gameOver, score, level, handleStart, handleScoring}) {
 
@@ -49,7 +49,8 @@ const Cards = function ({dataObjArr, start, gameOver, score, level, handleStart,
     const StartBtn = function () {
       return (
         <button onClick={handleStart} className='start-btn'>
-           START
+          <PlayIcon/>
+           Start
         </button>
       )
     }

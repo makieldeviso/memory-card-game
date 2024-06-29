@@ -1,20 +1,18 @@
 import { useState, useRef, createContext } from 'react'
 
-import GameArea from './components/GameArea'
-import { GameOverScreen, LoadingScreen } from './components/Modals';
+import GameArea from './components/GameArea';
+import HeaderContent from './components/HeaderContent';
 
 function App() {
 
   return (
     <>
       <header>
-        <h1>Memory Card</h1>
-        
+        <HeaderContent/> 
       </header>
+      
       <main>
         <GameArea/> 
-        <GameOverScreen/>
-        <LoadingScreen/>
       </main>
     </>
   )
