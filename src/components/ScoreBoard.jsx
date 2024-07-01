@@ -28,7 +28,6 @@ const ScoreBoard = function ({level, score, restart}) {
 
   // Changes meter width every score
   useEffect(() => {
-
     if (score !== 0) {
       setBaseScore(s => s + 1);
     }
@@ -48,7 +47,7 @@ const ScoreBoard = function ({level, score, restart}) {
     updateStoredScore();
     
   }, [level, score])
-  
+   
   return (
     <div className='score-board'>
       <p className = 'highest-score-label'>{`Highest Score: ${highScore.score}`}</p>

@@ -18,7 +18,6 @@ const capitalizeString = function (string) {
 }
 
 const animateFlip = async function (face) {
-  const cardsCont = document.querySelector('.cards-cont')
   const cards = document.querySelectorAll('div.card');
 
   if (face) {

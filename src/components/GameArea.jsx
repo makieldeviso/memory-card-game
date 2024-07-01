@@ -1,4 +1,4 @@
-import {useState, useEffect, useRef} from 'react'
+import { useState, useEffect, useRef } from 'react'
 import PropTypes from 'prop-types'
 
 import Cards from '../components/Cards'
@@ -43,6 +43,7 @@ const GameArea = function () {
 
       loadingScreenRef.current.showModal();
       const dataBatch = await getBatchData(batchCount);
+      console.log(dataBatch)
       loadingScreenRef.current.close();
 
       setDataObjArr((d) => d = dataBatch);  
@@ -95,7 +96,6 @@ const GameArea = function () {
   }
 
   const handleShuffleCards = function () {
-
     const shuffleCards = function (current = [...dataObjArr], shuffled = []) {
       if (current.length > 0) {
         const randomIndex = generateRandomNumber(0, current.length - 1);
@@ -109,20 +109,26 @@ const GameArea = function () {
     setDataObjArr(shuffleCards());  
   }
 
+  // const [flip, setFlip] = useState(false);
+  // useEffect(() => {
+  //   if (flip) {
+  //     console.log('ofp')
+  //     // Add an Event that triggers after the animation
+  //     animateFlip(false);
+      
+  //     setTimeout(() => {
+  //       handleShuffleCards();
+  //       setFlip(false)
+  //       // animateFlip(true);
+  //     }, 600);
+  //   }
+
+  // },[flip]);
+
+  
   const handleScoring = async function (event) {
-    const cardNode = event.target;
     const cardId = event.target.dataset.id;
-
-    // Add an Event that triggers after the animation
-    const updateScore = function () {
-      cardPickRef.current = [...cardPickRef.current, cardId];
-      handleShuffleCards();
-      setScore((s) => s + 1);
-    }
-
-    cardNode.addEventListener('transitionend', updateScore, {once: true});
-    cardNode.addEventListener('webkitTransitionend', updateScore, {once: true});
-
+    
     const cardCheck = cardPickRef.current.filter(card => card === cardId).length > 0;
     if (cardCheck) {
       // Note: if cardCheck is true, the card was already picked, game over
@@ -132,7 +138,9 @@ const GameArea = function () {
     } else {
       // Note: if cardCheck is false, add score
       // Run animation to trigger transitionend event
-      await animateFlip(false);  
+      cardPickRef.current = [...cardPickRef.current, cardId];
+      setScore(s => s + 1); 
+      // setFlip(true);
     }
   }
   
@@ -149,7 +157,7 @@ const GameArea = function () {
         handleStart = {handleStart}
       />
 
-    <GameOverScreen gameOverScreenRef={gameOverScreenRef} handlePlayAgain={handlePlayAgain}/>
+    <GameOverScreen score={score} gameOverScreenRef={gameOverScreenRef} handlePlayAgain={handlePlayAgain}/>
     <LoadingScreen loadingScreenRef={loadingScreenRef}/>
     </div>
   )

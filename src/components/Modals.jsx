@@ -2,11 +2,12 @@ import pokeImg from '../assets/pokeball.png'
 
 import { RestartIcon, GameOverIcon } from './Icons'
 
-const GameOverScreen = function ({gameOverScreenRef, handlePlayAgain}) {
+const GameOverScreen = function ({score, gameOverScreenRef, handlePlayAgain}) {
   return (
-    <dialog className='modal-screen game-over-screen' ref={gameOverScreenRef}>
+    <dialog className='modal-screen game-over-screen' ref={ gameOverScreenRef }>
       <div className='modal-content'>
         <h2>Game Over</h2>
+        <p className='game-over-score'>{`Score: ${score}`}</p>
         <GameOverIcon/>
         <button 
           type='button'

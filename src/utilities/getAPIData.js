@@ -25,7 +25,7 @@ const getData = async function (url) {
     return JSONData;
 
   } catch (error) {
-    console.log('here')
+    console.log('error')
     return {error: 'Not found'}
   }
 
@@ -35,23 +35,24 @@ const getData = async function (url) {
 const getBatchData = async function (count, arr = []) {
   // Note: count parameter -> number of images to get
   let objArr = [...arr];
+
   let dataObj = await getData(createRandomPokemonUrl());
+    // Check if an object is already in the array
+    // Reroll fetch if obj is already inside
+    let checkResult = objArr.filter((obj) => obj.id === dataObj.id).length > 0;
+    while (checkResult) {
+      dataObj = await getData(createRandomPokemonUrl());
+      checkResult = objArr.filter((obj) => obj.id === dataObj.id).length > 0;
+    }
 
-  // Check if an object is already in the array
-  // Reroll fetch if obj is already inside
-  const checkResult = objArr.filter((obj) => obj.id === dataObj.id).length > 0;
-  while (checkResult) {
-    dataObj = await getData(createRandomPokemonUrl());
-  }
+    if (objArr.length < count) {
+      console.log('loading');
+      return await getBatchData(count, [...objArr, dataObj]);
 
-  if (objArr.length < count) {
-    console.log('loading');
-    return await getBatchData(count, [...objArr, dataObj]);
-
-  } else {
-    return objArr
-  }
-
+    } else {
+      return objArr
+    } 
+  
 }
 
 const getItemData = function (itemName) {
