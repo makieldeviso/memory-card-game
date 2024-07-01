@@ -15,15 +15,16 @@ const GameArea = function () {
   const [start, setStart] = useState(false);
   const [gameOver, setGameOver] = useState(false);
   const [restart, setRestart] = useState(0);
-
+  const [shuffle, setShuffle] = useState(0);
   const [dataObjArr, setDataObjArr] = useState([]);
 
   const nextLevelRef = useRef(5);
   const cardPickRef = useRef([]);
-
+  
   const loadingScreenRef = useRef(null);
   const gameOverScreenRef = useRef(null);
   
+  const levelRef = useRef(1)
   // Get resource for pokemons
   useEffect(() => {
     const getDataObjects = async function () {
@@ -43,7 +44,6 @@ const GameArea = function () {
 
       loadingScreenRef.current.showModal();
       const dataBatch = await getBatchData(batchCount);
-      console.log(dataBatch)
       loadingScreenRef.current.close();
 
       setDataObjArr((d) => d = dataBatch);  
@@ -60,23 +60,21 @@ const GameArea = function () {
   // Checks score and update level
   useEffect(() => {
 
-    if (level === 1 && score === nextLevelRef.current) {
-      nextLevelRef.current = nextLevelRef.current + 10;
-      setLevel(l => l + 1);
-      
-    } else if (level === 2 && score === nextLevelRef.current) {
-      nextLevelRef.current = nextLevelRef.current + 15;
-      setLevel(l => l + 1);
+    if (score === nextLevelRef.current) {
+      if (level === 1) {
+        nextLevelRef.current = nextLevelRef.current + 10;
 
-    } else if (level === 3 && score === nextLevelRef.current) {
-      nextLevelRef.current = nextLevelRef.current + 20;
-      setLevel(l => l + 1);
+      } else if (level === 2) {
+        nextLevelRef.current = nextLevelRef.current + 15;
 
-    } else if (level >= 4 && score === nextLevelRef.current) {
-      nextLevelRef.current = nextLevelRef.current + 20
+      } else if (level >= 3) {
+        nextLevelRef.current = nextLevelRef.current + 20;
+      } 
+
       setLevel(l => l + 1);
+      levelRef.current++;
     }
-
+  
   }, [score, level])  
 
   const handleStart = function () {
@@ -91,41 +89,37 @@ const GameArea = function () {
 
     nextLevelRef.current = 5;
     cardPickRef.current = [];
+    levelRef.current = 1
 
     gameOverScreenRef.current.close();
   }
 
-  const handleShuffleCards = function () {
-    const shuffleCards = function (current = [...dataObjArr], shuffled = []) {
-      if (current.length > 0) {
-        const randomIndex = generateRandomNumber(0, current.length - 1);
-        const getCard = current.splice(randomIndex, 1);
-        return shuffleCards([...current], [...shuffled, getCard[0]]);
+  useEffect(() => {
+    animateFlip(false);
+    
+    if (start && levelRef.current === level) {
 
-      } else {
-        return shuffled        
+      const handleShuffleCards = function () {
+        const shuffleCards = function (current = [...dataObjArr], shuffled = []) {
+          if (current.length > 0) {
+            const randomIndex = generateRandomNumber(0, current.length - 1);
+            const getCard = current.splice(randomIndex, 1);
+            return shuffleCards([...current], [...shuffled, getCard[0]]);
+    
+          } else {
+            return shuffled        
+          }
+        }
+
+        setDataObjArr(shuffleCards())
       }
-    }
-    setDataObjArr(shuffleCards());  
-  }
-
-  // const [flip, setFlip] = useState(false);
-  // useEffect(() => {
-  //   if (flip) {
-  //     console.log('ofp')
-  //     // Add an Event that triggers after the animation
-  //     animateFlip(false);
       
-  //     setTimeout(() => {
-  //       handleShuffleCards();
-  //       setFlip(false)
-  //       // animateFlip(true);
-  //     }, 600);
-  //   }
-
-  // },[flip]);
-
-  
+      const card = document.querySelector('div.card');
+      card.addEventListener('animationend', handleShuffleCards, {once:true});
+    }
+    
+  },[shuffle])
+ 
   const handleScoring = async function (event) {
     const cardId = event.target.dataset.id;
     
@@ -140,7 +134,7 @@ const GameArea = function () {
       // Run animation to trigger transitionend event
       cardPickRef.current = [...cardPickRef.current, cardId];
       setScore(s => s + 1); 
-      // setFlip(true);
+      setShuffle(s => s + 1)
     }
   }
   

@@ -61,6 +61,4 @@ const getItemData = function (itemName) {
   return itemObj;
 }
 
-
-
 export {getBatchData, getItemData}
