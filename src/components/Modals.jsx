@@ -42,7 +42,7 @@ const LoadingScreen = function ({loadingScreenRef}) {
     <dialog className='modal-screen loading-screen' ref={loadingScreenRef}>
       <div className='modal-content'>
         <img src={pokeImg} alt="loading" className='loading-icon'/>
-        <h2>Loading</h2>
+        <p>Loading</p>
       </div>
     </dialog>
   )

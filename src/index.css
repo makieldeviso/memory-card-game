@@ -61,7 +61,8 @@
 }
 
 .sub-name {
-  font-size: 0.6rem;
+  font-family: var(--header-font);
+  font-size: 0.7rem;
   grid-row: 2 / 3;
   grid-column: 2 / 3;
 }
@@ -334,22 +335,31 @@ body::before {
 }
 
 .main-score-board {
-  border: 2px solid var(--red);
+  border: 3px solid var(--red);
   display: grid;
   grid-template-columns: 1fr;
   justify-items: center;
   align-items: center;
   gap: calc(var(--margin) * 0.3);
   padding: calc(var(--padding) * 0.5);
-  border-radius: 10px;
+  border-radius: 10px 0 10px 0;
   width: 100px;
   min-width: max-content;
   background-color: var(--lightest-color);
 }
 
+.main-score-board.new-high {
+  animation: sway 0.3s ease-in-out 2;
+  background-image: url(./assets/shine.gif);
+  background-size: 30%;
+  background-position: right;
+  background-repeat: no-repeat;
+  box-shadow: 0 0 5px 1px var(--pink);
+}
+
 .highest-score-label {
-  font-size: 1rem;
-  font-family: var(--condensed-font);
+  font-size: 0.8rem;
+  font-family: var(--handwritten-font);
 }
 
 .score-label {
@@ -371,7 +381,7 @@ body::before {
   height: 100%;
   padding: var(--padding);
   background-color: #edf6f9;
-  border: 2px solid var(--base-blue);
+  border: 3px solid var(--base-blue);
   border-radius: 10px 0 10px 0;
 }
 
@@ -424,6 +434,7 @@ body::before {
   border: 5px solid black;
   padding: calc(var(--padding) * 2);
   animation: pop-in 0.5s ease-out 1;
+  outline: none;
 }
 
 .modal-screen::backdrop {
@@ -540,9 +551,11 @@ body::before {
 }
 
 /* loading screen modal */
-.modal-screen.loading-screen {
-  border: 1px solid transparent;
+.loading-screen {
   background-color: transparent;
+  margin: 200px auto;
+  border-color: transparent;
+  background: transparent;
 }
 
 .loading-screen .modal-content {
@@ -551,8 +564,15 @@ body::before {
   justify-items: center;
   align-items: center;
   gap: var(--margin);
-  border: none;
   background-color: transparent;
+  padding: 0;
+}
+
+.loading-screen p {
+  font-family: var(--header-font);
+  font-size: 2rem;
+  color: white;
+  text-shadow: 0 0 5px var(--blue);
 }
 
 @keyframes wiggle {

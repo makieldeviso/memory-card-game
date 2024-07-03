@@ -31,6 +31,7 @@ const GameArea = function () {
   const levelRef = useRef(1)
   // Get resource for pokemons
   useEffect(() => {
+    loadingScreenRef.current.showModal();
     const getDataObjects = async function () {
       let batchCount;
       if (level === 1) {
@@ -44,7 +45,6 @@ const GameArea = function () {
       //Note: empty card pick on level up
       cardPickRef.current = [];
 
-      loadingScreenRef.current.showModal();
       const dataBatch = await getBatchData(batchCount);
       loadingScreenRef.current.close();
 
@@ -160,8 +160,8 @@ const GameArea = function () {
         handleStart = {handleStart}
       />
 
-    <GameOverScreen newHigh={newHigh} score={score} gameOverScreenRef={gameOverScreenRef} handlePlayAgain={handlePlayAgain}/>
     <LoadingScreen loadingScreenRef={loadingScreenRef}/>
+    <GameOverScreen newHigh={newHigh} score={score} gameOverScreenRef={gameOverScreenRef} handlePlayAgain={handlePlayAgain}/>
     </div>
   )
 }
