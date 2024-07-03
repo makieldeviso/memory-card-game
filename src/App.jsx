@@ -2,6 +2,7 @@ import { useState, useRef, createContext } from 'react'
 
 import GameArea from './components/GameArea';
 import HeaderContent from './components/HeaderContent';
+import FooterContent from './components/FooterContent';
 
 function App() {
 
@@ -14,6 +15,10 @@ function App() {
       <main>
         <GameArea/> 
       </main>
+
+      <footer>
+        <FooterContent/>
+      </footer>
     </>
   )
 }

@@ -2,14 +2,17 @@ import PropTypes from 'prop-types'
 
 import PlayOutlineIcon from '@mdi/react';
 import ReplayIcon from '@mdi/react';
-import { mdiPlayOutline, mdiReplay } from '@mdi/js';
+import GithubIcon from '@mdi/react';
+import { mdiPlayOutline, mdiReplay, mdiGithub } from '@mdi/js';
 
+import ballLogo from '../assets/icon.png';
 import ball1 from '../assets/poke-ball.png';
 import ball2 from '../assets/great-ball.png';
 import ball3 from '../assets/ultra-ball.png';
 import ball4 from '../assets/master-ball.png';
 
-import gameOver from '../assets/game-over.gif'
+import gameOverIcon from '../assets/game-over.gif';
+import newHighIcon from '../assets/new-high.gif';
 
 const BallIcons = function ({level}) {
   const iconsArr = [ball1, ball2, ball3, ball4];
@@ -23,9 +26,24 @@ BallIcons.propTypes = {
   level: PropTypes.number
 }
 
-const GameOverIcon = function () {
+const GameOverIcon = function ({ newHigh }) {
+  const imgAttributes = {
+    src: newHigh ? newHighIcon : gameOverIcon,
+    alt: newHigh ? 'New high score' : 'Game over',
+    className: 'game-over-icon'
+  }
+
   return (
-    <img src={gameOver} alt="game over" className='game-over-icon'/>
+    <img {...imgAttributes}/>
+  )
+}
+GameOverIcon.propTypes = {
+  newHigh: PropTypes.bool
+}
+
+const Logo = function () {
+  return (
+    <img src={ballLogo} alt="logo" className='page-logo'/>
   )
 }
 
@@ -42,4 +60,10 @@ const RestartIcon = function () {
   )
 }
 
-export {PlayIcon, RestartIcon, BallIcons, GameOverIcon}
+const Github = function () {
+  return (
+    <GithubIcon path={mdiGithub} size={1} />
+  )
+}
+
+export {Logo, PlayIcon, RestartIcon, BallIcons, GameOverIcon, Github}

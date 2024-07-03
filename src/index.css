@@ -29,19 +29,39 @@
   --light-yellow: #FFFFD2;
   --green: #3EC70B;
   --red: #FF6969;
+  --orange: #FF7D29;
+  --gray: #3D3B40;
 
 }
 
 .header-cont {
-  background-color: var(--blue);
+  background: linear-gradient(0.25turn, var(--blue), rgba(28, 179, 200, 0.2));
   padding: var(--padding);
   color: black;
 
+  display: grid;
+  grid-template-columns: repeat(2, max-content);
+  grid-template-rows: repeat(2, max-content);
+}
+
+.page-logo {
+  width: 50px;
+  grid-column: 1 / 2;
+  grid-row: 1 / 3;
 }
 
 .page-name {
-  font-size: 1.3rem;
+  font-size: 1rem;
   font-family: var(--handwritten-font);
+  grid-row: 1 / 2;
+  grid-column: 2 / 3;
+  align-self: end;
+}
+
+.sub-name {
+  font-size: 0.8rem;
+  grid-row: 2 / 3;
+  grid-column: 2 / 3;
 }
 
 button:hover {
@@ -49,13 +69,38 @@ button:hover {
   filter: brightness(1.1);
 }
 
-.game-area {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  padding: var(--padding);
 
+main {
+  background-color: rgba(28, 179, 200, 0.2);
+}
+
+body::before {
+  content: ' ';
+  display: block;
+  position: fixed;
+  left: 0;
+  bottom: 0;
   width: 100%;
   height: 100%;
+  opacity: 0.5;
+  background-image: url(/src/assets/bg-5.jpg);
+  background-attachment: fixed;
+  background-size: cover;
+  background-position: center;
+  z-index: -1;
+}
+
+.game-area {
+  display: grid;
+  grid-template-columns: 1fr;
+  padding: calc(var(--padding) * 2);
+  padding-bottom: 100px;
+  
+  gap: var(--margin);
+  justify-items: center;
+
+  width: max-content;
+  margin: auto;
 }
 
 .start-btn {
@@ -64,18 +109,17 @@ button:hover {
 
   width: max-content;
   padding: var(--padding) calc(var(--padding) * 2);
-  border: 3px solid var(--base-blue);
+  border: 5px solid var(--base-blue);
   background-color: var(--green);
   border-radius: 10px;
 
   color: var(--lightest-color);
-  text-shadow: 0 0 3px var(--light-gray);
-  box-shadow: 0 5px 5px 1px var(--light-gray);
 
   display: flex;
   justify-content: center;
   align-items: center;
   position: absolute;
+  transition: 300ms;
 }
 
 .start-btn svg {
@@ -86,16 +130,19 @@ button:hover {
 .cards-cont {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  grid-template-rows: repeat(4, 1fr);
+  grid-template-rows: repeat(3, 1fr);
 
   justify-items: center;
   align-items: center;
   gap: 8px;
-  border: 1px solid black;
-  border-radius: 10px;
+  border: 3px solid var(--orange);
   padding: var(--padding);
-  width: max-content;
-  height: 100%;
+  min-width: max-content;
+  min-height: 100%;
+
+  width: 650px;
+  height: 500px;
+  background-color: #FFE9D0;
   position: relative;
 }
 
@@ -107,7 +154,7 @@ button:hover {
   top: 0;
   width: 100%;
   height: 100%;
-  opacity: 0.4;
+  opacity: 0.5;
   background-image: url('./assets/bg-1.png');
   background-position: bottom;
   background-size: cover;
@@ -148,6 +195,10 @@ button:hover {
   transform: scale(1.2);
 }
 
+.card.flip-front.disabled:hover .pkmn-image {
+  animation: none;
+}
+
 @keyframes sway {
   from {  
     transform: translateY(-5px);
@@ -156,10 +207,6 @@ button:hover {
     transform: translateY(0);
   }
 } 
-
-.card.flip-front.disabled:hover .pkmn-image {
-  animation: none;
-}
 
 .card.flip-front:hover .pkmn-image {
   animation: sway 0.5s alternate-reverse infinite;
@@ -186,12 +233,12 @@ button:hover {
 }
 
 .card.flip-front {
-  animation: flip-front 0.6s ease-in-out 1;
+  animation: flip-front 0.3s ease-in-out 1;
   transform: rotateY(0deg) rotateZ(0deg); 
 }
 
 .card.flip-back {
-  animation: flip-back 0.6s ease-in-out 1;
+  animation: flip-back 0.3s ease-in-out 1;
   /* transform: rotateY(180deg) rotateZ(0deg);  */
 }
 
@@ -206,18 +253,25 @@ button:hover {
   width: 100%;
   height: 100%;
   background-color: var(--lightest-color);
-  border: 1px solid var(--red);
-  box-shadow: 0 0 5px 1px var(--pink);
+  border: 3px solid var(--base-blue);
 
   background-image: url(./assets/bg-3.png);
   background-position: center;
-  background-size: 100% 100%;
+  background-size: 95% 95%;
   background-repeat: no-repeat;
 
   display: grid;
   grid-template-columns: 1fr;
   align-items: center;
   justify-items: center;
+}
+
+.sprite-cont {
+  border-radius: 50%;
+  background-image: url(./assets/bg-4.png);
+  background-position: center;
+  background-size: 200%;
+  background-repeat: no-repeat;
 }
 
 .pkmn-image {
@@ -234,10 +288,10 @@ button:hover {
   width: 85%;
   text-align: center;
   margin: auto;
-  border: 1px solid var(--purple);
+  border: 1px solid var(--base-blue);
   border-radius: 5px 0 5px 0;
   padding: calc(var(--padding) * 0.3) 0;
-  background-color: var(--light-yellow);
+  background-color: white;
 }
 
 .card-back {
@@ -269,37 +323,71 @@ button:hover {
 /* Cards (end) */
 
 /* Score Board (start) */
-.main-score-board {
+.score-board {
+  width: 100%;
+  gap: var(--margin);
+
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: max-content 1fr;
-  width: 80%;
-  padding: var(--padding);
-  background-color: var(--lightest-color);
-  border: 5px solid var(--light-gray);
+  grid-template-columns: max-content 1fr;
+}
+
+.main-score-board {
+  border: 2px solid var(--red);
+  display: grid;
+  grid-template-columns: 1fr;
+  justify-items: center;
+  align-items: center;
+  gap: calc(var(--margin) * 0.3);
+  padding: calc(var(--padding) * 0.5);
   border-radius: 10px;
-  gap: 5px;
+  width: 100px;
+  min-width: max-content;
+  background-color: var(--lightest-color);
+}
+
+.highest-score-label {
+  font-size: 1rem;
+  font-family: var(--condensed-font);
 }
 
 .score-label {
-  font-size: 1rem;
-  grid-column: 1 / 2;
-  
+  font-family: var(--handwritten-font);
+  font-size: 0.8rem;
+}
+
+.score-count {
+  font-size: 2rem;
+}
+
+.score-bar-cont {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr;
+  align-items: center;
+  gap: 5px;
+  width: 100%;
+  height: 100%;
+  padding: var(--padding);
+  background-color: #edf6f9;
+  border: 2px solid var(--base-blue);
+  border-radius: 10px 0 10px 0;
 }
 
 .level-label {
   font-size: 1rem;
   justify-self: end;
+  font-family: var(--condensed-font);
 } 
 
 .score-bar {
-  grid-column: 1 / 3;
   border: 3px solid var(--light-gray);
   background-color: var(--light-yellow);
   border-radius: 10px;
-  height: 30px;
+  height: 25px;
   padding: 2px;
   overflow: hidden;
+  position: relative;
+  grid-column: 1 / 3;
 }
 
 .meter {
@@ -348,7 +436,7 @@ button:hover {
 }
 
 .game-over-screen {
-  background-color: #3D3B40;
+  background-color: var(--gray);
   min-height: max-content;
   border-color: var(--purple);
 }
@@ -412,6 +500,43 @@ button:hover {
   box-shadow: 0 0 10px 1px var(--purple);
 }
 
+/* game over new high score */
+.game-over-screen.new-high {
+  border-color: var(--red);
+  background-color: var(--light-yellow);
+  box-shadow: 0 0 30px 1px var(--base-blue);
+}
+
+.game-over-screen.new-high h2{
+  color: var(--base-blue);
+  font-size: 1.5rem;
+}
+
+.game-over-screen.new-high h3 {
+  font-size: 1.8rem;
+  color: var(--red);
+  font-family: var(--handwritten-font);
+  margin-top: var(--margin);
+  font-weight: bold;
+}
+
+.game-over-screen.new-high .game-over-score {
+  color: var(--base-blue);
+}
+
+.game-over-screen.new-high .play-again-btn:hover {
+  box-shadow: 0 0 10px 1px var(--red);
+}
+
+.game-over-screen.new-high::backdrop {
+ background-color: rgba(0, 0, 0, 0.7);
+ background-image: url(./assets/win.gif);
+ background-position: center;
+ background-size: contain;
+ background-repeat: no-repeat;
+ filter: brightness(1);
+}
+
 /* loading screen modal */
 .modal-screen.loading-screen {
   border: 1px solid transparent;
@@ -446,3 +571,44 @@ button:hover {
 
 
 /* Game Over Modal (end) */
+
+/* Footer (start) */
+footer {
+  background-color: var(--pink);
+}
+
+.footer-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: auto;
+  padding: var(--padding);
+  gap: var(--margin);
+}
+
+.footer-author {
+  display: flex;
+  gap: var(--margin);
+  align-items: center;
+}
+
+.github-link {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+}
+
+.github-icon {
+  width: 1rem;
+}
+
+a {
+  text-decoration: none;
+  color: black;
+}
+
+a:visited {
+  color: black;
+}
+
+/* Footer (end) */

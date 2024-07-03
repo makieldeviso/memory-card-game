@@ -1,14 +1,21 @@
+import { useState, useEffect } from 'react'
+
 import pokeImg from '../assets/pokeball.png'
 
 import { RestartIcon, GameOverIcon } from './Icons'
 
-const GameOverScreen = function ({score, gameOverScreenRef, handlePlayAgain}) {
+const GameOverScreen = function ({ newHigh, score, handlePlayAgain, gameOverScreenRef }) {
+ 
   return (
-    <dialog className='modal-screen game-over-screen' ref={ gameOverScreenRef }>
+    <dialog
+      className={`modal-screen game-over-screen ${newHigh ? 'new-high': ''}`} 
+      ref={ gameOverScreenRef }
+    >
       <div className='modal-content'>
         <h2>Game Over</h2>
+        {newHigh && <h3>New High Score!</h3>}
         <p className='game-over-score'>{`Score: ${score}`}</p>
-        <GameOverIcon/>
+        <GameOverIcon newHigh={newHigh}/>
         <button 
           type='button'
           className='play-again-btn'

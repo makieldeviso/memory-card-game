@@ -6,21 +6,25 @@ import ScoreBoard from './ScoreBoard';
 import { GameOverScreen, LoadingScreen } from '../components/Modals';
 
 import { generateRandomNumber, animateFlip } from '../utilities/utilities';
-import { getBatchData } from '../utilities/getAPIData';
+import { getHighestScore } from '../utilities/localStorageHandler';
+import { getBatchData, getItemData } from '../utilities/getAPIData';
 
 const GameArea = function () {
 
-  const [level, setLevel] = useState(1);
-  const [score, setScore] = useState(0);
   const [start, setStart] = useState(false);
+  const [score, setScore] = useState(0);
+  const [shuffle, setShuffle] = useState(0);
+  const [level, setLevel] = useState(1);
+  
+  const [newHigh, setNewHigh] = useState(false);
   const [gameOver, setGameOver] = useState(false);
   const [restart, setRestart] = useState(0);
-  const [shuffle, setShuffle] = useState(0);
+  
   const [dataObjArr, setDataObjArr] = useState([]);
 
   const nextLevelRef = useRef(5);
   const cardPickRef = useRef([]);
-  
+
   const loadingScreenRef = useRef(null);
   const gameOverScreenRef = useRef(null);
   
@@ -33,11 +37,9 @@ const GameArea = function () {
         batchCount = 5;
       } else if (level === 2) {
         batchCount = 10;
-      } else if (level === 3) {
+      } else if (level >= 3) {
         batchCount = 15;
-      } else if (level >= 4) {
-        batchCount = 20;
-      }
+      } 
 
       //Note: empty card pick on level up
       cardPickRef.current = [];
@@ -64,13 +66,9 @@ const GameArea = function () {
       if (level === 1) {
         nextLevelRef.current = nextLevelRef.current + 10;
 
-      } else if (level === 2) {
+      } else if (level >= 2) {
         nextLevelRef.current = nextLevelRef.current + 15;
-
-      } else if (level >= 3) {
-        nextLevelRef.current = nextLevelRef.current + 20;
       } 
-
       setLevel(l => l + 1);
       levelRef.current++;
     }
@@ -84,6 +82,7 @@ const GameArea = function () {
   const handlePlayAgain = function () {
     setLevel(1);
     setScore(0);
+    setNewHigh(false);
     setGameOver(false);
     setRestart(r => r + 1)
 
@@ -126,6 +125,16 @@ const GameArea = function () {
     const cardCheck = cardPickRef.current.filter(card => card === cardId).length > 0;
     if (cardCheck) {
       // Note: if cardCheck is true, the card was already picked, game over
+
+      const checkHighScore = async function () {
+        const currentHigh = await getHighestScore();
+        if (score === currentHigh.score) {
+          console.log('new high')
+          setNewHigh(true)
+        }
+      }
+      checkHighScore();
+
       setGameOver((g) => g = true);
       gameOverScreenRef.current.showModal();
 
@@ -151,7 +160,7 @@ const GameArea = function () {
         handleStart = {handleStart}
       />
 
-    <GameOverScreen score={score} gameOverScreenRef={gameOverScreenRef} handlePlayAgain={handlePlayAgain}/>
+    <GameOverScreen newHigh={newHigh} score={score} gameOverScreenRef={gameOverScreenRef} handlePlayAgain={handlePlayAgain}/>
     <LoadingScreen loadingScreenRef={loadingScreenRef}/>
     </div>
   )

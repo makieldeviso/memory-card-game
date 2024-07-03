@@ -50,11 +50,14 @@ const ScoreBoard = function ({level, score, restart}) {
    
   return (
     <div className='score-board'>
-      <p className = 'highest-score-label'>{`Highest Score: ${highScore.score}`}</p>
-
       <div className='main-score-board'>
-        <p className = 'score-label'>{`Score: ${score}`}</p>
-        <p className = 'level-label'>{`Lv${level}`}</p>
+        <p className = 'score-label'>Score</p>
+        <p className='score-count'>{score}</p>
+      </div>
+    
+      <div className='score-bar-cont'>
+      <p className = 'highest-score-label'>{`Highest Score: ${highScore.score}`}</p>
+      <p className = 'level-label'>{`Lv${level}`}</p>
         <div className="score-bar">
           <div
             className='meter'

@@ -31,11 +31,13 @@ const Cards = function ({dataObjArr, start, gameOver, score, level, handleStart,
 
           <div className = 'card-front'>
             <p className="pkmn-name">{capitalizeString(data.name)}</p>
+            <div className="sprite-cont">
             <img 
               src = {data.sprites.front_default}
               alt = {data.name}
               className = 'pkmn-image'
             />
+            </div>
           </div>
           
           <div className = 'card-back'>
