@@ -7,14 +7,14 @@ const FooterContent = function () {
       <div className='footer-author'>
         <p>Copyright&copy; 2024 - Fred Mark Baldeviso</p>
         <a className="github-link" href="https://github.com/makieldeviso" target="_blank" >
-          <Github className='github-icon'/>
-          <span className="link-text">makieldeviso</span>
+          <Github/>
+          makieldeviso
         </a>
       </div>
 
       <div>
         <p>Data resources received from &nbsp;
-          <a href="http://https://pokeapi.co/" target="_blank" >
+          <a href="https://pokeapi.co/" target="_blank" >
           PokeAPI.co
           </a>
         </p>

@@ -5,7 +5,6 @@ import ReplayIcon from '@mdi/react';
 import GithubIcon from '@mdi/react';
 import { mdiPlayOutline, mdiReplay, mdiGithub } from '@mdi/js';
 
-import ballLogo from '../assets/icon.png';
 import ball1 from '../assets/poke-ball.png';
 import ball2 from '../assets/great-ball.png';
 import ball3 from '../assets/ultra-ball.png';
@@ -41,13 +40,6 @@ GameOverIcon.propTypes = {
   newHigh: PropTypes.bool
 }
 
-const Logo = function () {
-  return (
-    <img src={ballLogo} alt="logo" className='page-logo'/>
-  )
-}
-
-
 const PlayIcon = function () {
   return (
     <PlayOutlineIcon path={mdiPlayOutline}/>
@@ -62,8 +54,8 @@ const RestartIcon = function () {
 
 const Github = function () {
   return (
-    <GithubIcon path={mdiGithub} size={1} />
+    <GithubIcon path={mdiGithub} className='github-icon'/>
   )
 }
 
-export {Logo, PlayIcon, RestartIcon, BallIcons, GameOverIcon, Github}
+export { PlayIcon, RestartIcon, BallIcons, GameOverIcon, Github }
