@@ -1,7 +1,8 @@
 const storageItemName = 'memoryCardByMakieldeviso';
 
-const saveHighestScore = function (level, score) {
-  const scoreObj = JSON.stringify({level, score});
+const saveHighestScore = function (score) {
+  const scoreObj = JSON.stringify({previousHigh: score});
+
   localStorage.setItem(storageItemName, scoreObj);
 }
 
@@ -9,7 +10,7 @@ const getHighestScore = async function () {
   let highScore = localStorage.getItem(storageItemName);
   
   if (!highScore) {
-    saveHighestScore(1, 0);
+    saveHighestScore(0);
     highScore = localStorage.getItem(storageItemName);
   } 
 
@@ -17,15 +18,16 @@ const getHighestScore = async function () {
   return parsedScore
 }
 
-const checkHighestScore = async function (level, score) {
+const checkHighestScore = async function (score) {
   const highScore = await getHighestScore();
 
-  if (score > highScore.score) {
-    saveHighestScore(level, score)
+  let result = false;
+  if (score > highScore.previousHigh) {
+    result = true;
   }
-  // Return true = update complete
-  return true;
+
+  return result
 }
 
 
-export { checkHighestScore, getHighestScore }
+export { checkHighestScore, getHighestScore, saveHighestScore }

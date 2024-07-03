@@ -7,7 +7,7 @@ const HeaderContent = function () {
       <h1 className='page-name'>
         Memory Card Game
       </h1>
-      <p className="sub-name">Pokemon</p>
+      <p className="sub-name">Pokemon Theme</p>
     </div>
     
   )

@@ -6,8 +6,8 @@ import ScoreBoard from './ScoreBoard';
 import { GameOverScreen, LoadingScreen } from '../components/Modals';
 
 import { generateRandomNumber, animateFlip } from '../utilities/utilities';
-import { getHighestScore } from '../utilities/localStorageHandler';
-import { getBatchData, getItemData } from '../utilities/getAPIData';
+import { checkHighestScore, saveHighestScore } from '../utilities/localStorageHandler';
+import { getBatchData } from '../utilities/getAPIData';
 
 const GameArea = function () {
 
@@ -127,10 +127,10 @@ const GameArea = function () {
       // Note: if cardCheck is true, the card was already picked, game over
 
       const checkHighScore = async function () {
-        const currentHigh = await getHighestScore();
-        if (score === currentHigh.score) {
-          console.log('new high')
-          setNewHigh(true)
+        const newHigh = await checkHighestScore(score);
+        if (newHigh) {
+          saveHighestScore(score);
+          setNewHigh(true);
         }
       }
       checkHighScore();
