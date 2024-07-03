@@ -39,6 +39,11 @@
   padding: var(--padding);
   color: black;
 
+  display: flex;
+  justify-content: space-between;
+}
+
+.page-banner {
   display: grid;
   grid-template-columns: repeat(2, max-content);
   grid-template-rows: repeat(2, max-content);
@@ -67,11 +72,73 @@
   grid-column: 2 / 3;
 }
 
+.menu-btns {
+  width: max-content;
+  display: flex;
+  gap: var(--margin);
+  margin-right: var(--margin);
+}
+
+/* info button and modal (start) */
+.info-btn {
+  width: max-content;
+  height: max-content;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 3px solid white;
+  background-color: var(--base-blue);
+  color: white;
+  border-radius: 50%;
+  box-shadow: 0 0 3px 1px rgba(0, 0, 0, 0.5);
+}
+
+.info-btn svg{
+  width: 30px;
+  height: 30px; 
+}
+
+.info-screen p,  .info-screen li {
+  color: white;
+}
+
+.modal-screen.info-screen {
+  border: none;
+  border-radius: unset;
+  background: transparent;
+  padding: 30px;
+}
+
+.info-screen .modal-content {
+  background-color: var(--gray);
+  border: 5px solid var(--base-blue);
+  border-radius: 10px;
+}
+
+.close-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: max-content;
+  justify-self: end;
+  border: 2px solid var(--base-blue);
+  border-radius: 50%;
+  padding: calc(var(--padding) * 0.5);
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+.close-btn svg {
+  width: 30px;
+}
+
+/* info button and modal (end) */
+
 button:hover {
   cursor: pointer;
   filter: brightness(1.1);
 }
-
 
 main {
   background-color: rgba(28, 179, 200, 0.2);

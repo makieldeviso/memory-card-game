@@ -1,10 +1,62 @@
+import { useRef } from 'react';
 import PropTypes from 'prop-types';
 
 import pokeImg from '../assets/pokeball.png';
-import { RestartIcon, GameOverIcon } from './Icons';
+import { RestartIcon, GameOverIcon, InfoIcon, Close } from './Icons';
+
+const InfoButtonPlusModal = function () {
+  const infoScreenRef = useRef(null);
+
+  // Modal opener button
+  const InfoButton = function () {
+    return (
+      <button
+        type = 'button' 
+        className = 'info-btn' 
+        aria-label = 'Open game info'
+        onClick = {() => infoScreenRef.current.showModal()}
+      >
+        <InfoIcon/>
+      </button>
+    )
+  }
+  
+  // Info Screen Modal
+  const InfoScreen = function () {
+    return (
+      <dialog className='modal-screen info-screen' ref={infoScreenRef}>
+        <button 
+          className = 'close-btn'
+          onClick = {() => infoScreenRef.current.close()}
+        >
+          <Close/>
+        </button>
+
+        <div className='modal-content'>
+          <p>How to play</p>
+          <ol>
+            <li>Pick a new card in every turn</li>
+            <li>You must not repeat a card pick in a level</li>
+            <li>A successful pick scores a point</li>
+            <li>If a card was already picked within a level, the game is over</li>
+            <li>Your card picks are refreshed in every level, so picking the same card in a different level is a successful pick</li>
+            <li>The first few levels are stacked with fewer cards. Leveling up adds more cards to the stack</li>
+          </ol>
+        </div>
+
+      </dialog>
+    )
+  }
+
+  return (
+    <div className='menu-option'>
+      <InfoButton/>
+      <InfoScreen/>
+    </div>
+  )
+}
 
 const GameOverScreen = function ({ newHigh, score, handlePlayAgain, gameOverScreenRef }) {
- 
   return (
     <dialog
       className={`modal-screen game-over-screen ${newHigh ? 'new-high': ''}`} 
@@ -54,4 +106,4 @@ LoadingScreen.propTypes = {
   })
 }
 
-export {LoadingScreen, GameOverScreen}
+export {LoadingScreen, GameOverScreen, InfoButtonPlusModal}

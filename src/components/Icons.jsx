@@ -3,7 +3,9 @@ import PropTypes from 'prop-types'
 import PlayOutlineIcon from '@mdi/react';
 import ReplayIcon from '@mdi/react';
 import GithubIcon from '@mdi/react';
-import { mdiPlayOutline, mdiReplay, mdiGithub } from '@mdi/js';
+import InformationVariantIcon from '@mdi/react';
+import CloseIcon from '@mdi/react';
+import { mdiPlayOutline, mdiReplay, mdiGithub, mdiInformationVariant, mdiClose } from '@mdi/js';
 
 import ball1 from '../assets/poke-ball.png';
 import ball2 from '../assets/great-ball.png';
@@ -58,4 +60,16 @@ const Github = function () {
   )
 }
 
-export { PlayIcon, RestartIcon, BallIcons, GameOverIcon, Github }
+const InfoIcon = function () {
+  return (
+    <InformationVariantIcon path={mdiInformationVariant}/>
+  )
+}
+
+const Close = function () {
+  return (
+    <CloseIcon path={mdiClose}/>
+  )
+}
+
+export { PlayIcon, RestartIcon, BallIcons, GameOverIcon, Github, InfoIcon, Close }
