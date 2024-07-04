@@ -22,7 +22,7 @@ const GameArea = function () {
   
   const [dataObjArr, setDataObjArr] = useState([]);
 
-  const nextLevelRef = useRef(5);
+  const nextLevelRef = useRef(6);
   const cardPickRef = useRef([]);
 
   const loadingScreenRef = useRef(null);
@@ -35,11 +35,11 @@ const GameArea = function () {
     const getDataObjects = async function () {
       let batchCount;
       if (level === 1) {
-        batchCount = 5;
+        batchCount = 6;
       } else if (level === 2) {
-        batchCount = 10;
+        batchCount = 12;
       } else if (level >= 3) {
-        batchCount = 15;
+        batchCount = 18;
       } 
 
       //Note: empty card pick on level up
@@ -64,10 +64,10 @@ const GameArea = function () {
 
     if (score === nextLevelRef.current) {
       if (level === 1) {
-        nextLevelRef.current = nextLevelRef.current + 10;
+        nextLevelRef.current = nextLevelRef.current + 12;
 
       } else if (level >= 2) {
-        nextLevelRef.current = nextLevelRef.current + 15;
+        nextLevelRef.current = nextLevelRef.current + 18;
       } 
       setLevel(l => l + 1);
       levelRef.current++;
@@ -86,7 +86,7 @@ const GameArea = function () {
     setGameOver(false);
     setRestart(r => r + 1)
 
-    nextLevelRef.current = 5;
+    nextLevelRef.current = 6;
     cardPickRef.current = [];
     levelRef.current = 1
 

@@ -6,7 +6,7 @@ import { checkHighestScore, getHighestScore } from '../utilities/localStorageHan
 const ScoreBoard = function ({level, score, restart}) {
 
   const [baseScore, setBaseScore] = useState(0);
-  const [nextLevel, setNextLevel] = useState(5);
+  const [nextLevel, setNextLevel] = useState(6);
 
   const [highScore, setHighScore] = useState(0);
 
@@ -15,13 +15,11 @@ const ScoreBoard = function ({level, score, restart}) {
   // Set base score for the meter
   useEffect(() => {
     if (level === 1) {
-      setNextLevel(5);
+      setNextLevel(6);
     } else if (level === 2) {
-      setNextLevel(10);
-    } else if (level === 3) {
-      setNextLevel(15);
-    } else if (level >= 4) {
-      setNextLevel(20);
+      setNextLevel(12);
+    } else if (level >= 3) {
+      setNextLevel(18);
     }
 
     setBaseScore(0);
