@@ -173,7 +173,6 @@ li {
 .close-btn svg path {
   fill: var(--red) !important;
 }
-
 /* info button and modal (end) */
 
 button:hover {
@@ -194,7 +193,7 @@ body::before {
   width: 100%;
   height: 100%;
   opacity: 0.5;
-  background-image: url(/src/assets/bg-5.jpg);
+  background-image: url('../assets/bg-5.jpg');
   background-attachment: fixed;
   background-size: cover;
   background-position: center;
@@ -266,7 +265,7 @@ body::before {
   width: 100%;
   height: 100%;
   opacity: 0.5;
-  background-image: url('./assets/bg-1.png');
+  background-image: url('../assets/bg-1.png');
   background-position: bottom;
   background-size: cover;
   background-repeat: no-repeat;
@@ -350,7 +349,6 @@ body::before {
 
 .card.flip-back {
   animation: flip-back 0.3s ease-in-out 1;
-  /* transform: rotateY(180deg) rotateZ(0deg);  */
 }
 
 .card-front, .card-back {
@@ -366,7 +364,7 @@ body::before {
   background-color: var(--lightest-color);
   border: 3px solid var(--base-blue);
 
-  background-image: url(./assets/bg-3.png);
+  background-image: url(../assets/bg-3.png);
   background-position: center;
   background-size: 95% 95%;
   background-repeat: no-repeat;
@@ -379,7 +377,7 @@ body::before {
 
 .sprite-cont {
   border-radius: 50%;
-  background-image: url(./assets/bg-4.png);
+  background-image: url(../assets/bg-4.png);
   background-position: center;
   background-size: 200%;
   background-repeat: no-repeat;
@@ -410,7 +408,7 @@ body::before {
   height: 100%;
   border: 3px solid var(--purple);
   background-color: var(--blue);
-  background-image: url(./assets/bg-2.png);
+  background-image: url(../assets/bg-2.png);
   background-position: center;
   background-size: cover;
 
@@ -430,7 +428,6 @@ body::before {
   box-shadow: 0 0 5px 1px var(--pink);
   border-radius: 50%;
 }
-
 /* Cards (end) */
 
 /* Score Board (start) */
@@ -458,7 +455,7 @@ body::before {
 
 .main-score-board.new-high {
   animation: sway 0.3s ease-in-out 2;
-  background-image: url(./assets/shine.gif);
+  background-image: url(../assets/shine.gif);
   background-size: 30%;
   background-position: right;
   background-repeat: no-repeat;
@@ -651,7 +648,7 @@ body::before {
 
 .game-over-screen.new-high::backdrop {
  background-color: rgba(0, 0, 0, 0.7);
- background-image: url(./assets/win.gif);
+ background-image: url(../assets/win.gif);
  background-position: center;
  background-size: contain;
  background-repeat: no-repeat;
@@ -698,8 +695,6 @@ body::before {
   animation: wiggle 0.5s ease-in-out alternate infinite;
   transform-style: preserve-3d;
 }
-
-
 /* Game Over Modal (end) */
 
 /* Footer (start) */
@@ -751,6 +746,4 @@ footer {
 .footer-content a:hover {
   color: greenyellow;
 }
-
-
 /* Footer (end) */
