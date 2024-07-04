@@ -39,7 +39,7 @@
     padding: var(--padding);
     top: 0;
     left: 0;
-    background-color: var(--purple);
+    background-color: rgba(186, 144, 198, 0.5);
   }
 
   .main-score-board {
@@ -79,10 +79,6 @@
     overflow: hidden;
   }
 
-  .pkmn-image {
-    width: 100%;
-  }
-
   .card {
     width: 100%;
     min-width: 100px;
@@ -98,28 +94,6 @@
 
   .start-btn svg {
     width: 30px;
-  }
-
-  :root {
-    position: relative;
-    min-width: 320px;
-  }
-
-  main {
-    padding-bottom: 200px;
-  }
-
-  footer {
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    z-index: -1;
-  }
-
-  footer div {
-    flex-wrap: wrap;
-    justify-content: center;
   }
 
   .modal-screen {
