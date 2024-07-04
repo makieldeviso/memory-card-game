@@ -469,6 +469,8 @@ body::before {
 
   display: grid;
   grid-template-columns: max-content 1fr;
+  padding: var(--padding);
+  background-color: rgba(186, 144, 198, 0.5);
 }
 
 .main-score-board {
