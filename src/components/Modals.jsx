@@ -2,6 +2,8 @@ import { useRef } from 'react';
 import PropTypes from 'prop-types';
 
 import pokeImg from '../assets/pokeball.png';
+import infoGif from '../assets/info.gif';
+
 import { RestartIcon, GameOverIcon, InfoIcon, Close } from './Icons';
 
 const InfoButtonPlusModal = function () {
@@ -33,15 +35,20 @@ const InfoButtonPlusModal = function () {
         </button>
 
         <div className='modal-content'>
-          <p>How to play</p>
+          <h2>How to play</h2>
           <ol>
-            <li>Pick a new card in every turn</li>
-            <li>You must not repeat a card pick in a level</li>
-            <li>A successful pick scores a point</li>
-            <li>If a card was already picked within a level, the game is over</li>
-            <li>Your card picks are refreshed in every level, so picking the same card in a different level is a successful pick</li>
-            <li>The first few levels are stacked with fewer cards. Leveling up adds more cards to the stack</li>
+            <li>Pick a unique card in every turn.</li>
+            <li>After pick, card placement is shuffled for the next turn.</li>
+            <li>You must not repeat a card pick in a level.</li>
+            <li>A successful pick scores a point.</li>
+            <li>If a card was already picked within a level, the game is over.</li>
+            <li>Your card picks are refreshed in every level, so instance of picking the same card in a different level is a successful pick.</li>
+            <li>The first few levels are stacked with fewer cards. Leveling up adds more cards to the stack.</li>
+            <li>Keep on picking unique cards and accumulate points to attain the high score.</li>
           </ol>
+
+          <img src={infoGif} alt="" className='info-gif'/>
+
         </div>
 
       </dialog>
