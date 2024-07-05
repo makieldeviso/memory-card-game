@@ -1,5 +1,3 @@
-import { useRef } from 'react'
-
 import Logo from '../assets/icon.png'
 import { InfoButtonPlusModal } from './Modals'
 
