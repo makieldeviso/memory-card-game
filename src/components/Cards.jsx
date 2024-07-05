@@ -26,7 +26,7 @@ const Cards = function ({dataObjArr, start, gameOver, score, level, handleStart,
           key = {data.id} 
           className = {`card ${gameOver ? 'disabled' : ''}`} 
           data-id = {data.id}
-          onClick = {gameOver || !start ? null : handleScoring} 
+          onClick = {gameOver || !start ? null : handleScoring}
         >
 
           <div className = 'card-front'>
@@ -34,7 +34,7 @@ const Cards = function ({dataObjArr, start, gameOver, score, level, handleStart,
             <div className="sprite-cont">
             <img 
               src = {data.sprites.front_default}
-              alt = {data.name}
+              alt = {`${data.name} card`}
               className = 'pkmn-image'
             />
             </div>
