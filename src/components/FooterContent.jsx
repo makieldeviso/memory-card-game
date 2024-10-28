@@ -5,7 +5,7 @@ const FooterContent = function () {
   return (
     <div className='footer-content'>
       <div className='footer-author'>
-        <p>Fred Mark Baldeviso - 2024</p>
+        <p>Fred Mark Baldeviso - {(new Date()).getFullYear()}</p>
         <a className="github-link" href="https://github.com/makieldeviso" target="_blank" >
           <Github/>
           makieldeviso
